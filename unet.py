@@ -38,11 +38,10 @@ class SegmentationDataset(object):
         img = cv.imread(image_path, cv.IMREAD_GRAYSCALE)  # BGR order
         mask = cv.imread(mask_path, cv.IMREAD_GRAYSCALE)
 
-        # 输入图像
+        
         img = np.float32(img) / 255.0
         img = np.expand_dims(img, 0)
 
-        # 目标标签0 ~ 1， 对于
         mask[mask <= 128] = 0
         mask[mask > 128] = 1
         mask = np.expand_dims(mask, 0)
@@ -219,9 +218,9 @@ if __name__ == '__main__':
                 print('eport{} \t step: {} \tcurrent Loss: {:.6f} '.format(epoch,index, loss.item()))
             index += 1
             # test(unet)
-        # 计算平均损失
+        # calculate loss
         train_loss = train_loss / dataloader.num_of_samples()
-        # 显示训练集与验证集的损失函数
+        # Show training set loss
         print('Epoch: {} \tTraining Loss: {:.6f} '.format(epoch, train_loss))
         # test(unet)
     # save model
